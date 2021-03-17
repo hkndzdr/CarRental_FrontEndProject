@@ -10,6 +10,7 @@ import { BrandService } from 'src/app/services/brand.service';
 export class BrandComponent implements OnInit {
 
   brands:Brand[]=[];
+  currentBrand: Brand;
   dataLoaded=false;
 
   constructor(private brandService:BrandService) { }
@@ -23,5 +24,30 @@ export class BrandComponent implements OnInit {
       this.brands=response.data;
       this.dataLoaded=true;
     });
+  }
+
+  setCurrentBrand(brand:Brand){
+    this.currentBrand=brand;
+  }
+  removeCurrentBrand(){
+    this.currentBrand = {brandId:0,brandName:""};
+  }
+
+  getCurrentBrandClass(brand:Brand){
+    if(brand==this.currentBrand){
+      return "list-group-item active cursorPointer"
+    }
+    else{
+      return "list-group-item cursorPointer"
+    }
+    
+  }
+  
+  getAllBrandClass(){
+    if(this.currentBrand.brandId || this.currentBrand.brandId == 0){ 
+      return "list-group-item active cursorPointer";
+    } else {
+      return "list-group-item cursorPointer";
+    }
   }
 }
